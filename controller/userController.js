@@ -1,4 +1,4 @@
-const JWT = require("jsonwebtoken");
+﻿const JWT = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const User = require("../models/User.js");
 const tokenGenerator = (user) => {
@@ -44,7 +44,6 @@ const singup = async (req, res, next) => {
 		console.log(x);
 		const token = tokenGenerator(user);
 		res.status(201).json({
-			msg: user,
 			token,
 		});
 	} catch (e) {
@@ -72,4 +71,10 @@ const googleAuth = async (req, res) => {
 	const token = tokenGenerator(req.user);
 	res.status(200).json({ token });
 };
-module.exports = { singup, singin, privet, googleAuth };
+
+const facebookAuth = async (req, res, next) => {
+	console.log(req.user);
+	const token = tokenGenerator(req.user);
+	res.status(200).json({ token });
+};
+module.exports = { singup, singin, privet, googleAuth, facebookAuth };
